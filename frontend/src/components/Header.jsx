@@ -26,11 +26,9 @@ const style = {
   p: 4
 }
 
+// Disappearing Header on scroll
 function HideOnScroll(props) {
   const { children, window } = props
-  // Note that you normally won't need to set the window ref as useScrollTrigger
-  // will default to window.
-  // This is only being set here because the demo is in an iframe.
   const trigger = useScrollTrigger({
     target: window ? window() : undefined
   })
@@ -45,6 +43,11 @@ function HideOnScroll(props) {
 HideOnScroll.propTypes = {
   children: PropTypes.element.isRequired,
   window: PropTypes.func
+}
+
+const onSubmit = async e => {
+  e.preventDefault()
+  console.log(e)
 }
 
 export default function HideAppBar(props) {
@@ -72,27 +75,42 @@ export default function HideAppBar(props) {
               aria-describedby='modal-modal-description'
             >
               <Box sx={style}>
-                <Box
-                  component='form'
-                  sx={{
-                    '& .MuiTextField-root': { m: 1, width: '95%' }
-                  }}
-                  noValidate
-                >
+                <form onSubmit={e => onSubmit(e)}>
                   <TextField
                     fullWidth
+                    style={{ marginBottom: '10px' }}
                     id='outlined-basic'
                     label='Username'
+                    type='email'
                     variant='outlined'
                   />
                   <TextField
                     fullWidth
+                    style={{ marginBottom: '10px' }}
                     id='outlined-password-input'
                     label='Password'
                     type='password'
                     autoComplete='current-password'
                   />
-                </Box>
+                  <Button
+                    style={{ float: 'left' }}
+                    variant='contained'
+                    type='submit'
+                  >
+                    Login
+                  </Button>
+                  <Link
+                    style={{
+                      textDecoration: 'none',
+                      color: 'inherit',
+                      float: 'right'
+                    }}
+                    onClick={handleClose}
+                    to='/register'
+                  >
+                    <Button variant='contained'>or Register here</Button>
+                  </Link>
+                </form>
               </Box>
             </Modal>
             <Link
