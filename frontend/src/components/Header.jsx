@@ -62,7 +62,9 @@ export default function HideAppBar(props) {
         <AppBar>
           <Toolbar>
             <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-              Hiking Timeline
+              <Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
+                Hiking Timeline
+              </Link>
             </Typography>
             <Button color='inherit' onClick={handleOpen}>
               <FaSignInAlt />
