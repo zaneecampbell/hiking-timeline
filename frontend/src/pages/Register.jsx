@@ -1,14 +1,15 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import { FaUser } from 'react-icons/fa'
 
+// Edit this for Mobile position absolute nahhhhhhh
 const style = {
-  position: 'absolute',
-  top: '30%',
-  left: '50%',
+  marginTop: '256px',
+  marginLeft: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
   bgcolor: 'background.paper',
@@ -42,6 +43,9 @@ function Register() {
   return (
     <>
       <Box sx={style}>
+        <Typography variant='h3' gutterBottom component='div'>
+          Register Here
+        </Typography>
         <form onSubmit={e => onSubmit(e)}>
           <TextField
             fullWidth
