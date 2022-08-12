@@ -44,7 +44,8 @@ function Register() {
     <>
       <Box sx={style}>
         <Typography variant='h3' gutterBottom component='div'>
-          Register Here
+          <FaUser />
+          &nbsp;Register
         </Typography>
         <form onSubmit={e => onSubmit(e)}>
           <TextField
