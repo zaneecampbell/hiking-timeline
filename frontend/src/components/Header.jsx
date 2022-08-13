@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa'
+import { useSelector, useDispatch } from 'react-redux'
+import { login } from '../features/auth/authSlice'
 import PropTypes from 'prop-types'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
@@ -45,15 +47,40 @@ HideOnScroll.propTypes = {
   window: PropTypes.func
 }
 
-const onSubmit = async e => {
-  e.preventDefault()
-  console.log(e)
-}
-
 export default function HideAppBar(props) {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  })
+
+  const { email, password } = formData
+
+  const dispatch = useDispatch()
+
+  const { user, isLoading, isSuccess, message } = useSelector(
+    state => state.auth
+  )
+
+  const onChange = e => {
+    setFormData(prevState => ({
+      ...prevState,
+      [e.target.name]: e.target.value
+    }))
+  }
+
+  const onSubmit = async e => {
+    e.preventDefault()
+
+    const userData = {
+      email,
+      password
+    }
+
+    dispatch(login(userData))
+  }
 
   return (
     <React.Fragment>
@@ -78,24 +105,29 @@ export default function HideAppBar(props) {
             >
               <Box sx={style}>
                 <Typography variant='h3' gutterBottom component='div'>
-                  <FaUser />
-                  &nbsp;Login
+                  Login
                 </Typography>
                 <form onSubmit={e => onSubmit(e)}>
                   <TextField
                     fullWidth
                     style={{ marginBottom: '10px' }}
-                    id='outlined-basic'
-                    label='Username'
+                    id='email'
+                    label='Email'
                     type='email'
+                    name='email'
+                    value={email}
+                    onChange={onChange}
                     variant='outlined'
                   />
                   <TextField
                     fullWidth
                     style={{ marginBottom: '10px' }}
-                    id='outlined-password-input'
+                    id='password'
                     label='Password'
                     type='password'
+                    name='password'
+                    value={password}
+                    onChange={onChange}
                     autoComplete='current-password'
                   />
                   <Button

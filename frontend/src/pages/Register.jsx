@@ -1,10 +1,13 @@
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
+import { FaUser } from 'react-icons/fa'
+import { useSelector, useDispatch } from 'react-redux'
+import { register } from '../features/auth/authSlice'
 import { Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
-import { FaUser } from 'react-icons/fa'
 
 // Edit this for Mobile position absolute nahhhhhhh
 const style = {
@@ -18,11 +21,6 @@ const style = {
   p: 4
 }
 
-const onSubmit = async e => {
-  e.preventDefault()
-  console.log(e)
-}
-
 function Register() {
   const [formData, setFormData] = useState({
     name: '',
@@ -33,6 +31,12 @@ function Register() {
 
   const { name, email, password, password2 } = formData
 
+  const dispatch = useDispatch()
+
+  const { user, isLoading, isSuccess, message } = useSelector(
+    state => state.auth
+  )
+
   const onChange = e => {
     setFormData(prevState => ({
       ...prevState,
@@ -40,12 +44,28 @@ function Register() {
     }))
   }
 
+  const onSubmit = e => {
+    e.preventDefault()
+
+    if (password !== password2) {
+      toast.error('Passwords do not match')
+    } else {
+      const userData = {
+        name,
+        email,
+        password
+      }
+
+      dispatch(register(userData))
+    }
+  }
+
   return (
     <>
       <Box sx={style}>
         <Typography variant='h3' gutterBottom component='div'>
           <FaUser />
-          &nbsp;Register
+          &nbsp;Register {user}
         </Typography>
         <form onSubmit={e => onSubmit(e)}>
           <TextField
@@ -92,15 +112,9 @@ function Register() {
             onChange={onChange}
             autoComplete='current-password'
           />
-          <Link
-            style={{
-              textDecoration: 'none',
-              color: 'inherit'
-            }}
-            to='/register'
-          >
-            <Button variant='contained'>Register</Button>
-          </Link>
+          <Button variant='contained' type='submit'>
+            Register
+          </Button>
         </form>
       </Box>
     </>
