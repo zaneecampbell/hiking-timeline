@@ -15,15 +15,15 @@ import Slide from '@mui/material/Slide'
 
 // Login Modal style
 const style = {
-  position: 'absolute',
-  top: '30%',
-  left: '50%',
+  marginTop: '256px',
+  marginLeft: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
-  p: 4
+  p: 4,
+  pb: 7
 }
 
 // Disappearing Header on scroll
@@ -77,6 +77,10 @@ export default function HideAppBar(props) {
               aria-describedby='modal-modal-description'
             >
               <Box sx={style}>
+                <Typography variant='h3' gutterBottom component='div'>
+                  <FaUser />
+                  &nbsp;Login
+                </Typography>
                 <form onSubmit={e => onSubmit(e)}>
                   <TextField
                     fullWidth
