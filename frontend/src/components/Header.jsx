@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
-import { login } from '../features/auth/authSlice'
+import { login, logout, reset } from '../features/auth/authSlice'
 import PropTypes from 'prop-types'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
@@ -58,6 +58,7 @@ export default function HideAppBar(props) {
 
   const { email, password } = formData
 
+  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const { user, isLoading, isSuccess, message } = useSelector(
@@ -82,6 +83,12 @@ export default function HideAppBar(props) {
     dispatch(login(userData))
   }
 
+  const onLogout = () => {
+    dispatch(logout())
+    dispatch(reset())
+    navigate('/')
+  }
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -93,73 +100,83 @@ export default function HideAppBar(props) {
                 Hiking Timeline
               </Link>
             </Typography>
-            <Button color='inherit' onClick={handleOpen}>
-              <FaSignInAlt />
-              &nbsp;Login
-            </Button>
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby='modal-modal-title'
-              aria-describedby='modal-modal-description'
-            >
-              <Box sx={style}>
-                <Typography variant='h3' gutterBottom component='div'>
-                  Login
-                </Typography>
-                <form onSubmit={e => onSubmit(e)}>
-                  <TextField
-                    fullWidth
-                    style={{ marginBottom: '10px' }}
-                    id='email'
-                    label='Email'
-                    type='email'
-                    name='email'
-                    value={email}
-                    onChange={onChange}
-                    variant='outlined'
-                  />
-                  <TextField
-                    fullWidth
-                    style={{ marginBottom: '10px' }}
-                    id='password'
-                    label='Password'
-                    type='password'
-                    name='password'
-                    value={password}
-                    onChange={onChange}
-                    autoComplete='current-password'
-                  />
-                  <Button
-                    style={{ float: 'left' }}
-                    variant='contained'
-                    type='submit'
-                  >
-                    Login
-                  </Button>
-                  <Link
-                    style={{
-                      textDecoration: 'none',
-                      color: 'inherit',
-                      float: 'right'
-                    }}
-                    onClick={handleClose}
-                    to='/register'
-                  >
-                    <Button variant='contained'>or Register here</Button>
-                  </Link>
-                </form>
-              </Box>
-            </Modal>
-            <Link
-              style={{ textDecoration: 'none', color: 'inherit' }}
-              to='/register'
-            >
-              <Button color='inherit'>
-                <FaUser />
-                &nbsp;Register
+            {/*If logged in show logout otherwise show register and login*/}
+            {user ? (
+              <Button color='inherit' onClick={onLogout}>
+                <FaSignOutAlt />
+                Logout
               </Button>
-            </Link>
+            ) : (
+              <>
+                <Button color='inherit' onClick={handleOpen}>
+                  <FaSignInAlt />
+                  &nbsp;Login
+                </Button>
+                <Modal
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby='modal-modal-title'
+                  aria-describedby='modal-modal-description'
+                >
+                  <Box sx={style}>
+                    <Typography variant='h3' gutterBottom component='div'>
+                      Login
+                    </Typography>
+                    <form onSubmit={e => onSubmit(e)}>
+                      <TextField
+                        fullWidth
+                        style={{ marginBottom: '10px' }}
+                        id='email'
+                        label='Email'
+                        type='email'
+                        name='email'
+                        value={email}
+                        onChange={onChange}
+                        variant='outlined'
+                      />
+                      <TextField
+                        fullWidth
+                        style={{ marginBottom: '10px' }}
+                        id='password'
+                        label='Password'
+                        type='password'
+                        name='password'
+                        value={password}
+                        onChange={onChange}
+                        autoComplete='current-password'
+                      />
+                      <Button
+                        style={{ float: 'left' }}
+                        variant='contained'
+                        type='submit'
+                      >
+                        Login
+                      </Button>
+                      <Link
+                        style={{
+                          textDecoration: 'none',
+                          color: 'inherit',
+                          float: 'right'
+                        }}
+                        onClick={handleClose}
+                        to='/register'
+                      >
+                        <Button variant='contained'>or Register here</Button>
+                      </Link>
+                    </form>
+                  </Box>
+                </Modal>
+                <Link
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                  to='/register'
+                >
+                  <Button color='inherit'>
+                    <FaUser />
+                    &nbsp;Register
+                  </Button>
+                </Link>
+              </>
+            )}
           </Toolbar>
         </AppBar>
       </HideOnScroll>
