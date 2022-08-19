@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
 import { login, logout, reset } from '../features/auth/authSlice'
 import PropTypes from 'prop-types'
+import Spinner from './Spinner'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Box from '@mui/material/Box'
@@ -61,9 +63,23 @@ export default function HideAppBar(props) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const { user, isLoading, isSuccess, message } = useSelector(
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
     state => state.auth
   )
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message)
+    }
+
+    // Redirect when logged in
+    if (isSuccess && user) {
+      handleClose()
+      navigate('/')
+    }
+
+    dispatch(reset())
+  }, [isError, isSuccess, user, message, navigate, dispatch])
 
   const onChange = e => {
     setFormData(prevState => ({
@@ -87,6 +103,10 @@ export default function HideAppBar(props) {
     dispatch(logout())
     dispatch(reset())
     navigate('/')
+  }
+
+  if (isLoading) {
+    return <Spinner />
   }
 
   return (

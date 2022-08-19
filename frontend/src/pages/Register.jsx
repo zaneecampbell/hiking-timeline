@@ -8,6 +8,7 @@ import { Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
+import Spinner from '../components/Spinner'
 
 // Edit this for Mobile position absolute nahhhhhhh
 const style = {
@@ -72,6 +73,10 @@ function Register() {
 
       dispatch(register(userData))
     }
+  }
+
+  if (isLoading) {
+    return <Spinner />
   }
 
   return (
