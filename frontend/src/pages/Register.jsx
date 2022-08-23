@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, Redirect } from 'react-router-dom'
 import { FaUser } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
 import { register, reset } from '../features/auth/authSlice'
@@ -10,7 +10,8 @@ import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import Spinner from '../components/Spinner'
 
-// Edit this for Mobile position absolute nahhhhhhh
+// Leave this as its own page so if someone comes here already authenticated we can push them to the timeline
+
 const style = {
   marginTop: '256px',
   marginLeft: '50%',
@@ -46,6 +47,10 @@ function Register() {
 
     // Redirect when logged in
     if (isSuccess && user) {
+      navigate('/')
+    }
+
+    if (user) {
       navigate('/')
     }
 
