@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import Header from './components/Header'
 import Home from './pages/Home'
 import Register from './pages/Register'
+import { useSelector } from 'react-redux'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 const theme = createTheme({

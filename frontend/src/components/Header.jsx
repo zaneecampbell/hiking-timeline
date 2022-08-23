@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa'
+import { FaSignInAlt, FaSignOutAlt, FaUser, FaPlusCircle } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
 import { login, logout, reset } from '../features/auth/authSlice'
 import PropTypes from 'prop-types'
@@ -122,10 +122,25 @@ export default function HideAppBar(props) {
             </Typography>
             {/*If logged in show logout otherwise show register and login*/}
             {user ? (
-              <Button color='inherit' onClick={onLogout}>
-                <FaSignOutAlt />
-                Logout
+              <Button color='inherit' sx={{ margin: 'auto' }}>
+                <Link
+                  to='/'
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  <FaPlusCircle />
+                  &nbsp;Create
+                </Link>
               </Button>
+            ) : (
+              <></>
+            )}
+            {user ? (
+              <>
+                <Button color='inherit' onClick={onLogout}>
+                  <FaSignOutAlt />
+                  &nbsp;Logout
+                </Button>
+              </>
             ) : (
               <>
                 <Button color='inherit' onClick={handleOpen}>
