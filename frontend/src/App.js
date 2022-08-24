@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import Header from './components/Header'
 import Home from './pages/Home'
 import Register from './pages/Register'
+import Create from './pages/Create'
 import { useSelector } from 'react-redux'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
@@ -29,6 +30,7 @@ function App() {
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/register' element={<Register />}></Route>
+              <Route path='/create' element={<Create />}></Route>
             </Routes>
           </div>
         </ThemeProvider>

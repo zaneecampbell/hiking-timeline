@@ -124,7 +124,7 @@ export default function HideAppBar(props) {
             {user ? (
               <Button color='inherit' sx={{ margin: 'auto' }}>
                 <Link
-                  to='/'
+                  to='/create'
                   style={{ textDecoration: 'none', color: 'inherit' }}
                 >
                   <FaPlusCircle />
