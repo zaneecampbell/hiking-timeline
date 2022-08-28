@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
-import { Link, useNavigate, Redirect } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { FaPlus } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
-import { register, reset } from '../features/auth/authSlice'
+import { reset } from '../features/auth/authSlice'
 import { Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
@@ -26,7 +26,8 @@ const style = {
 function Create() {
   const [formData, setFormData] = useState({
     where: '',
-    when: ''
+    when: '',
+    images: {}
   })
 
   const { where, when } = formData
@@ -46,6 +47,7 @@ function Create() {
     // Redirect if not logged in
     if (!user) {
       navigate('/')
+      toast.error('Please login to create a new post')
     }
 
     dispatch(reset())
@@ -91,17 +93,18 @@ function Create() {
             id='where'
             label='Where'
             type='text'
-            pl='where'
+            name='where'
             value={where}
             onChange={onChange}
             variant='outlined'
           />
           <TextField
+            InputLabelProps={{ shrink: true }}
             fullWidth
             style={{ marginBottom: '10px' }}
             id='when'
             label='When'
-            type='text'
+            type='date'
             name='when'
             value={when}
             onChange={onChange}

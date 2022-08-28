@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
-import { Link, useNavigate, Redirect } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { FaUser } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
 import { register, reset } from '../features/auth/authSlice'
@@ -48,10 +48,12 @@ function Register() {
     // Redirect when logged in
     if (isSuccess && user) {
       navigate('/')
+      toast.success('Account Created!')
     }
 
     if (user) {
       navigate('/')
+      toast.success('You are already logged in!')
     }
 
     dispatch(reset())
