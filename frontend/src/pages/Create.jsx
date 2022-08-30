@@ -72,6 +72,8 @@ function Create() {
       }
 
       dispatch(createTimeline(timelineData))
+      // Push to timelineEvent page with corrisponding id for event!!?@!?!??@!
+      // im going to need isSuccess and stuff added to the timeline state probably
     }
   }
 

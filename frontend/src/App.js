@@ -5,6 +5,7 @@ import Header from './components/Header'
 import Home from './pages/Home'
 import Register from './pages/Register'
 import Create from './pages/Create'
+import TimelineEvent from './pages/TimelineEvent'
 import { useSelector } from 'react-redux'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
@@ -31,6 +32,7 @@ function App() {
               <Route path='/' element={<Home />} />
               <Route path='/register' element={<Register />}></Route>
               <Route path='/create' element={<Create />}></Route>
+              <Route path='/timelineEvent' element={<TimelineEvent />}></Route>
             </Routes>
           </div>
         </ThemeProvider>
