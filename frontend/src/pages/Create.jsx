@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { FaPlus } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
 import { reset } from '../features/auth/authSlice'
+import { createTimeline } from '../features/timeline/timelineSlice'
 import { Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
@@ -26,8 +27,7 @@ const style = {
 function Create() {
   const [formData, setFormData] = useState({
     where: '',
-    when: '',
-    images: {}
+    when: ''
   })
 
   const { where, when } = formData
@@ -66,12 +66,12 @@ function Create() {
     if (!where || !when) {
       toast.error('Please add when and where')
     } else {
-      const userData = {
+      const timelineData = {
         when,
         where
       }
 
-      dispatch(Create(userData))
+      dispatch(createTimeline(timelineData))
     }
   }
 

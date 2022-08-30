@@ -2,23 +2,22 @@ const asyncHandler = require('express-async-handler')
 
 const Timeline = require('../models/timelineModel')
 
-// @desc    Register a new user
-// @route   /api/users
-// @access  Public
+// @desc    Create a new timeline piece
+// @route   /api/timeline
+// @access  Private
 const createTimeline = asyncHandler(async (req, res) => {
-  const { when, where, imgUrls } = req.body
+  const { when, where } = req.body
 
   // Validation
-  if (!when || !where || !imgUrls) {
+  if (!when || !where) {
     res.status(400)
     throw new Error('Please include all fields')
   }
 
-  // Create user
+  // Create timeline event
   const timeline = await Timeline.create({
     when,
-    where,
-    imgUrls
+    where
   })
 
   if (timeline) {
@@ -33,6 +32,8 @@ const createTimeline = asyncHandler(async (req, res) => {
     throw new Error('Failed to create Timeline event')
   }
 })
+
+// Create an upload image urls function
 
 module.exports = {
   createTimeline
