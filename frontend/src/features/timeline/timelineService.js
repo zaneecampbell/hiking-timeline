@@ -12,6 +12,7 @@ const createTimeline = async (timelineData, token) => {
 
   const response = await axios.post(API_URL, timelineData, config)
 
+  console.log(response.data)
   return response.data
 }
 

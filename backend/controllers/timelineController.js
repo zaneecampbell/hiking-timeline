@@ -14,6 +14,14 @@ const createTimeline = asyncHandler(async (req, res) => {
     throw new Error('Please include all fields')
   }
 
+  // Checks if that dates taken already
+  const timelineExists = await Timeline.findOne({ when })
+
+  if (timelineExists) {
+    res.status(400)
+    throw new Error('Date already taken!')
+  }
+
   // Create timeline event
   const timeline = await Timeline.create({
     when,

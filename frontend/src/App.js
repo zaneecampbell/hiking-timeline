@@ -6,7 +6,6 @@ import Home from './pages/Home'
 import Register from './pages/Register'
 import Create from './pages/Create'
 import TimelineEvent from './pages/TimelineEvent'
-import { useSelector } from 'react-redux'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 const theme = createTheme({

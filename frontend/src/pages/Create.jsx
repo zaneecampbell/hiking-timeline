@@ -35,9 +35,9 @@ function Create() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
-    state => state.auth
-  )
+  const { timeline, timelines, isLoading, isError, isSuccess, message } =
+    useSelector(state => state.timeline)
+  const { user } = useSelector(state => state.auth)
 
   useEffect(() => {
     if (isError) {

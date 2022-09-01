@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import timelineService from './timelineService'
-import { extractErrorMessage } from '../../utils'
 
-// NOTE: no need for isLoading, isSuccess, isError or message as we can leverage
-// our AsyncThunkAction and get Promise reolved or rejected messages at
-// component level
 const initialState = {
   timelines: null,
-  timeline: null
+  timeline: null,
+  isError: false,
+  isSuccess: false,
+  isLoading: false,
+  message: ''
 }
 
 // Create new timeline event
@@ -18,7 +18,14 @@ export const createTimeline = createAsyncThunk(
       const token = thunkAPI.getState().auth.user.token
       return await timelineService.createTimeline(timelineData, token)
     } catch (error) {
-      return thunkAPI.rejectWithValue(extractErrorMessage(error))
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+
+      return thunkAPI.rejectWithValue(message)
     }
   }
 )
@@ -26,10 +33,30 @@ export const createTimeline = createAsyncThunk(
 export const timelineSlice = createSlice({
   name: 'timeline',
   initialState,
+  reducers: {
+    reset: state => {
+      state.isLoading = false
+      state.isError = false
+      state.isSuccess = false
+      state.message = ''
+    }
+  },
   extraReducers: builder => {
-    builder.addCase(createTimeline.fulfilled, (state, action) => {
-      console.log('Success')
-    })
+    builder
+      .addCase(createTimeline.pending, state => {
+        state.isLoading = true
+      })
+      .addCase(createTimeline.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.timeline = action.payload
+      })
+      .addCase(createTimeline.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
+        state.timeline = null
+      })
   }
 })
 
