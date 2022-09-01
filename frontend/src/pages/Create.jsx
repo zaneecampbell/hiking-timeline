@@ -3,15 +3,12 @@ import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { FaPlus } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
-import { reset } from '../features/auth/authSlice'
-import { createTimeline } from '../features/timeline/timelineSlice'
+import { createTimeline, reset } from '../features/timeline/timelineSlice'
 import { Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import Spinner from '../components/Spinner'
-
-// If not authenticated redirect to Home
 
 const style = {
   marginTop: '256px',
@@ -35,8 +32,9 @@ function Create() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const { timeline, timelines, isLoading, isError, isSuccess, message } =
-    useSelector(state => state.timeline)
+  const { timeline, isLoading, isError, isSuccess, message } = useSelector(
+    state => state.timeline
+  )
   const { user } = useSelector(state => state.auth)
 
   useEffect(() => {
@@ -50,8 +48,14 @@ function Create() {
       toast.error('Please login to create a new post')
     }
 
+    // Redirect when logged in
+    if (isSuccess && timeline) {
+      navigate('/timelineEvent')
+      toast.success('Timeline Created!')
+    }
+
     dispatch(reset())
-  }, [isError, isSuccess, user, message, navigate, dispatch])
+  }, [timeline, isError, isSuccess, user, message, navigate, dispatch])
 
   const onChange = e => {
     setFormData(prevState => ({

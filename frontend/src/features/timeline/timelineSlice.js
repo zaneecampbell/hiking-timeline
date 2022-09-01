@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import timelineService from './timelineService'
 
 const initialState = {
-  timelines: null,
   timeline: null,
   isError: false,
   isSuccess: false,
@@ -55,9 +54,9 @@ export const timelineSlice = createSlice({
         state.isLoading = false
         state.isError = true
         state.message = action.payload
-        state.timeline = null
       })
   }
 })
 
+export const { reset } = timelineSlice.actions
 export default timelineSlice.reducer
