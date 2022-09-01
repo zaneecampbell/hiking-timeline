@@ -31,7 +31,10 @@ function App() {
               <Route path='/' element={<Home />} />
               <Route path='/register' element={<Register />}></Route>
               <Route path='/create' element={<Create />}></Route>
-              <Route path='/timelineEvent' element={<TimelineEvent />}></Route>
+              <Route
+                path='/timelineEvent/:id'
+                element={<TimelineEvent />}
+              ></Route>
             </Routes>
           </div>
         </ThemeProvider>

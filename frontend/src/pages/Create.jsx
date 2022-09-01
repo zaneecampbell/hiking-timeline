@@ -50,7 +50,7 @@ function Create() {
 
     // Redirect when logged in
     if (isSuccess && timeline) {
-      navigate('/timelineEvent')
+      navigate(`/timelineEvent/${timeline._id}`)
       toast.success('Timeline Created!')
     }
 

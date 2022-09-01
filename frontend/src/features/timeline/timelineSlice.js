@@ -38,6 +38,7 @@ export const timelineSlice = createSlice({
       state.isError = false
       state.isSuccess = false
       state.message = ''
+      state.timeline = null
     }
   },
   extraReducers: builder => {
