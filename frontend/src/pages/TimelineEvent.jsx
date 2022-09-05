@@ -1,10 +1,31 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL
+} from 'firebase/storage'
+import { db } from '../firebase.config'
+import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
 import Spinner from '../components/Spinner'
+import { v4 as uuidv4 } from 'uuid'
 
-function TimelineEvent() {
+function TimelineEvent({ match }) {
   const dispatch = useDispatch()
   const { timeline } = useSelector(state => state.timeline)
+
+  const [formData, setFormData] = useState({ images: {} })
+
+  const { id } = useParams()
+
+  useEffect(() => {
+    console.log(id)
+  })
+
+  const { images } = formData
 
   if (!timeline) {
     return <>No timeline event found</>
@@ -12,9 +33,38 @@ function TimelineEvent() {
 
   const { when, where } = timeline
 
+  const onMutate = e => {
+    if (e.target.files) {
+      setFormData(prevState => ({
+        ...prevState,
+        images: e.target.files
+      }))
+    }
+  }
+
+  const onImageUpload = async e => {
+    e.preventDefault()
+  }
+
   return (
     <div>
       {when} - {where}
+      <form>
+        <TextField
+          fullWidth
+          style={{ marginBottom: '10px' }}
+          id='images'
+          label='Images'
+          type='file'
+          name='images'
+          value={images}
+          onChange={onImageUpload}
+          multiple
+        />
+        <Button variant='contained' type='submit'>
+          Upload
+        </Button>
+      </form>
     </div>
   )
 }

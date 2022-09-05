@@ -48,7 +48,7 @@ function Create() {
       toast.error('Please login to create a new post')
     }
 
-    // Redirect when logged in
+    // Redirect when timeline is created
     if (isSuccess && timeline) {
       navigate(`/timelineEvent/${timeline._id}`)
       toast.success('Timeline Created!')
