@@ -13,7 +13,7 @@ import Button from '@mui/material/Button'
 import Spinner from '../components/Spinner'
 import { v4 as uuidv4 } from 'uuid'
 
-function TimelineEvent({ match }) {
+function TimelineEvent() {
   const dispatch = useDispatch()
   const { timeline } = useSelector(state => state.timeline)
 

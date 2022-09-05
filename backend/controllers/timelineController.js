@@ -41,8 +41,22 @@ const createTimeline = asyncHandler(async (req, res) => {
   }
 })
 
+const getTimeline = asyncHandler(async (req, res) => {
+  const { id } = req.body
+
+  const timeline = await Timeline.findById(id)
+
+  if (timeline) {
+    res.status(200).send(timeline)
+  } else {
+    res.status(401)
+    throw new Error('No Event happened on this date!')
+  }
+})
+
 // Create an upload image urls function
 
 module.exports = {
-  createTimeline
+  createTimeline,
+  getTimeline
 }

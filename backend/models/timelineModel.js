@@ -13,11 +13,6 @@ const timelineSchema = mongoose.Schema(
     },
     imgUrls: {
       type: Array
-    },
-    isAdmin: {
-      type: Boolean,
-      required: true,
-      default: false
     }
   },
   {
