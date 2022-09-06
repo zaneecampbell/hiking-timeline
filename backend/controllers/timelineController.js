@@ -43,16 +43,15 @@ const createTimeline = asyncHandler(async (req, res) => {
 
 // Get Timeline by id route
 const getTimeline = asyncHandler(async (req, res) => {
-  const { id } = req.body
+  const timeline = await Timeline.findById(req.body.id)
 
   // Validation
-  if (!id) {
+  if (!timeline) {
     res.status(400)
     throw new Error('Event not found')
   }
 
-  console.log(id)
-  res.send({ id })
+  res.send(timeline)
 })
 
 // Create an upload image urls function
