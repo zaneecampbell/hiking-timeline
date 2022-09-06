@@ -10,14 +10,23 @@ const createTimeline = async (timelineData, token) => {
     }
   }
 
+  console.log(timelineData)
   const response = await axios.post(API_URL, timelineData, config)
 
   console.log(response.data)
   return response.data
 }
 
+// Get timeline event
+const getTimeline = async id => {
+  const response = await axios.post(API_URL + 'getOne', id)
+  console.log(response.data)
+  return response.data
+}
+
 const timelineService = {
-  createTimeline
+  createTimeline,
+  getTimeline
 }
 
 export default timelineService

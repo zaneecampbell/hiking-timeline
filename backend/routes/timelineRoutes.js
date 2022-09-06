@@ -8,6 +8,6 @@ const {
 const { protect } = require('../middleware/authMiddleware')
 
 router.post('/', protect, createTimeline)
-router.get('/getOne', getTimeline)
+router.post('/getOne', getTimeline)
 
 module.exports = router

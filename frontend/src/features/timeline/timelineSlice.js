@@ -29,6 +29,25 @@ export const createTimeline = createAsyncThunk(
   }
 )
 
+// Get timeline event
+export const getTimeline = createAsyncThunk(
+  'timeline/getOne',
+  async (id, thunkAPI) => {
+    try {
+      return await timelineService.getTimeline(id)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
+
 export const timelineSlice = createSlice({
   name: 'timeline',
   initialState,
@@ -52,6 +71,19 @@ export const timelineSlice = createSlice({
         state.timeline = action.payload
       })
       .addCase(createTimeline.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
+      })
+      .addCase(getTimeline.pending, state => {
+        state.isLoading = true
+      })
+      .addCase(getTimeline.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.timeline = action.payload
+      })
+      .addCase(getTimeline.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload

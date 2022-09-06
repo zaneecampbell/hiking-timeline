@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { reset } from '../features/timeline/timelineSlice'
+import { toast } from 'react-toastify'
+import { getTimeline, reset } from '../features/timeline/timelineSlice'
 import {
   getStorage,
   ref,
@@ -16,11 +17,23 @@ import { v4 as uuidv4 } from 'uuid'
 
 function TimelineEvent() {
   const dispatch = useDispatch()
-  const { timeline } = useSelector(state => state.timeline)
+  const { timeline, isLoading, isError, isSuccess, message } = useSelector(
+    state => state.timeline
+  )
 
   const [formData, setFormData] = useState({ images: {} })
 
   const { id } = useParams()
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message)
+    }
+
+    const idData = { id }
+
+    dispatch(getTimeline(idData))
+  }, [])
 
   const { images } = formData
 
@@ -45,7 +58,7 @@ function TimelineEvent() {
 
   return (
     <div>
-      {when} - {where}
+      {/* {when} - {where}
       <form>
         <TextField
           fullWidth
@@ -61,7 +74,7 @@ function TimelineEvent() {
         <Button variant='contained' type='submit'>
           Upload
         </Button>
-      </form>
+      </form> */}
     </div>
   )
 }
