@@ -3,7 +3,11 @@ import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { FaPlus } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
-import { createTimeline, reset } from '../features/timeline/timelineSlice'
+import {
+  clearSuccess,
+  createTimeline,
+  reset
+} from '../features/timeline/timelineSlice'
 import { Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
@@ -48,14 +52,11 @@ function Create() {
       toast.error('Please login to create a new post')
     }
 
-    // Redirect when timeline is created
-    if (isSuccess && timeline) {
+    if (timeline && isSuccess) {
       navigate(`/timelineEvent/${timeline._id}`)
       toast.success('Timeline Created!')
     }
-
-    dispatch(reset())
-  }, [timeline, isError, isSuccess, user, message, navigate, dispatch])
+  }, [timeline, isError, user, message, navigate, dispatch])
 
   const onChange = e => {
     setFormData(prevState => ({

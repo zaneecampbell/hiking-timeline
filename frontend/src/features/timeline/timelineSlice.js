@@ -1,3 +1,4 @@
+import { sliderClasses } from '@mui/material'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import timelineService from './timelineService'
 
@@ -58,6 +59,9 @@ export const timelineSlice = createSlice({
       state.isSuccess = false
       state.message = ''
       state.timeline = null
+    },
+    clearSuccess: state => {
+      state.isSuccess = false
     }
   },
   extraReducers: builder => {
@@ -91,5 +95,5 @@ export const timelineSlice = createSlice({
   }
 })
 
-export const { reset } = timelineSlice.actions
+export const { reset, clearSuccess } = timelineSlice.actions
 export default timelineSlice.reducer

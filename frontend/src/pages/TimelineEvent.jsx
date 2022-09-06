@@ -2,7 +2,11 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
-import { getTimeline, reset } from '../features/timeline/timelineSlice'
+import {
+  clearSuccess,
+  getTimeline,
+  reset
+} from '../features/timeline/timelineSlice'
 import {
   getStorage,
   ref,
@@ -17,9 +21,8 @@ import { v4 as uuidv4 } from 'uuid'
 
 function TimelineEvent() {
   const dispatch = useDispatch()
-  const { timeline, isLoading, isError, isSuccess, message } = useSelector(
-    state => state.timeline
-  )
+  const { timeline, isLoading, isError, isSuccess, message, isGot } =
+    useSelector(state => state.timeline)
 
   const [formData, setFormData] = useState({ images: {} })
 
@@ -34,6 +37,10 @@ function TimelineEvent() {
 
     dispatch(getTimeline(idData))
   }, [])
+
+  if (isSuccess) {
+    dispatch(clearSuccess())
+  }
 
   const { images } = formData
 
