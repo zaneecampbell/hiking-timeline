@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import { reset } from '../features/timeline/timelineSlice'
 import {
   getStorage,
   ref,
@@ -20,10 +21,6 @@ function TimelineEvent() {
   const [formData, setFormData] = useState({ images: {} })
 
   const { id } = useParams()
-
-  useEffect(() => {
-    console.log(id)
-  })
 
   const { images } = formData
 
