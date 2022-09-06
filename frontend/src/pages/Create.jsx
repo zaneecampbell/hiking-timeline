@@ -5,6 +5,7 @@ import { FaPlus } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   clearSuccess,
+  clearError,
   createTimeline,
   reset
 } from '../features/timeline/timelineSlice'
@@ -44,6 +45,7 @@ function Create() {
   useEffect(() => {
     if (isError) {
       toast.error(message)
+      dispatch(clearError())
     }
 
     // Redirect if not logged in

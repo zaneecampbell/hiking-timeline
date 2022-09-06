@@ -6,6 +6,7 @@ const initialState = {
   timeline: null,
   isError: false,
   isSuccess: false,
+  isGot: false,
   isLoading: false,
   message: ''
 }
@@ -57,11 +58,19 @@ export const timelineSlice = createSlice({
       state.isLoading = false
       state.isError = false
       state.isSuccess = false
+      state.isGot = false
       state.message = ''
       state.timeline = null
     },
     clearSuccess: state => {
       state.isSuccess = false
+    },
+    clearGot: state => {
+      state.isGot = false
+    },
+    clearError: state => {
+      state.isError = false
+      state.message = ''
     }
   },
   extraReducers: builder => {
@@ -81,10 +90,11 @@ export const timelineSlice = createSlice({
       })
       .addCase(getTimeline.pending, state => {
         state.isLoading = true
+        state.isGot = false
       })
       .addCase(getTimeline.fulfilled, (state, action) => {
         state.isLoading = false
-        state.isSuccess = true
+        state.isGot = true
         state.timeline = action.payload
       })
       .addCase(getTimeline.rejected, (state, action) => {
@@ -95,5 +105,5 @@ export const timelineSlice = createSlice({
   }
 })
 
-export const { reset, clearSuccess } = timelineSlice.actions
+export const { reset, clearSuccess, clearError } = timelineSlice.actions
 export default timelineSlice.reducer

@@ -35,12 +35,9 @@ function TimelineEvent() {
 
     const idData = { id }
 
+    dispatch(clearSuccess())
     dispatch(getTimeline(idData))
   }, [])
-
-  if (isSuccess) {
-    dispatch(clearSuccess())
-  }
 
   const { images } = formData
 
