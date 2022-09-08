@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import {
   clearSuccess,
+  clearError,
   getTimeline,
   reset
 } from '../features/timeline/timelineSlice'
@@ -18,6 +19,8 @@ import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import Spinner from '../components/Spinner'
 import { v4 as uuidv4 } from 'uuid'
+
+// If timeline not found error message not displaying
 
 function TimelineEvent() {
   const dispatch = useDispatch()
@@ -62,8 +65,8 @@ function TimelineEvent() {
 
   return (
     <div>
-      {/* {when} - {where}
-      <form>
+      {when} - {where}
+      {/* <form>
         <TextField
           fullWidth
           style={{ marginBottom: '10px' }}
