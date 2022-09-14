@@ -19,6 +19,7 @@ import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import Spinner from '../components/Spinner'
 import { v4 as uuidv4 } from 'uuid'
+import { Typography } from '@mui/material'
 
 // If timeline not found error message not displaying
 
@@ -57,31 +58,42 @@ function TimelineEvent() {
         images: e.target.files
       }))
     }
+    console.log(formData.images)
   }
 
   const onImageUpload = async e => {
     e.preventDefault()
+    console.log(images)
   }
 
   return (
     <div>
       {when} - {where}
-      {/* <form>
-        <TextField
-          fullWidth
-          style={{ marginBottom: '10px' }}
+      <form>
+        <input
+          style={{ display: 'none' }}
           id='images'
           label='Images'
           type='file'
           name='images'
-          value={images}
-          onChange={onImageUpload}
+          accept='jpg,.png,.jpeg'
+          onChange={onMutate}
+          max='6'
           multiple
+          required
         />
-        <Button variant='contained' type='submit'>
-          Upload
-        </Button>
-      </form> */}
+        <label htmlFor='images'>
+          <Button variant='contained' color='primary' component='span'>
+            Select Images
+          </Button>
+        </label>
+        {images.length > 0 ? (
+          <Typography>{images.length} images selected</Typography>
+        ) : (
+          <div></div>
+        )}
+        <Button onClick={onImageUpload}>Button</Button>
+      </form>
     </div>
   )
 }
