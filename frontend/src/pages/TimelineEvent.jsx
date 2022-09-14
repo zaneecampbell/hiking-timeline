@@ -16,6 +16,7 @@ import {
 } from 'firebase/storage'
 import { db } from '../firebase.config'
 import TextField from '@mui/material/TextField'
+import Input from '@mui/material/Input'
 import Button from '@mui/material/Button'
 import Spinner from '../components/Spinner'
 import { v4 as uuidv4 } from 'uuid'
@@ -58,7 +59,6 @@ function TimelineEvent() {
         images: e.target.files
       }))
     }
-    console.log(formData.images)
   }
 
   const onImageUpload = async e => {
@@ -70,7 +70,17 @@ function TimelineEvent() {
     <div>
       {when} - {where}
       <form>
-        <input
+        <Input
+          id='images'
+          label='Images'
+          type='file'
+          name='images'
+          accept='jpg,.png,.jpeg'
+          onChange={onMutate}
+          inputProps={{ max: '6', multiple: true }}
+          required
+        ></Input>
+        {/* <input
           style={{ display: 'none' }}
           id='images'
           label='Images'
@@ -81,12 +91,12 @@ function TimelineEvent() {
           max='6'
           multiple
           required
-        />
-        <label htmlFor='images'>
+        /> */}
+        {/* <label htmlFor='images'>
           <Button variant='contained' color='primary' component='span'>
             Select Images
           </Button>
-        </label>
+        </label> */}
         {images.length > 0 ? (
           <Typography>{images.length} images selected</Typography>
         ) : (
