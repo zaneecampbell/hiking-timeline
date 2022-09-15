@@ -71,6 +71,7 @@ function TimelineEvent() {
       {when} - {where}
       <form>
         <Input
+          style={{ display: 'none' }}
           id='images'
           label='Images'
           type='file'
@@ -79,30 +80,21 @@ function TimelineEvent() {
           onChange={onMutate}
           inputProps={{ max: '6', multiple: true }}
           required
-        ></Input>
-        {/* <input
-          style={{ display: 'none' }}
-          id='images'
-          label='Images'
-          type='file'
-          name='images'
-          accept='jpg,.png,.jpeg'
-          onChange={onMutate}
-          max='6'
-          multiple
-          required
-        /> */}
-        {/* <label htmlFor='images'>
+        />
+        <label htmlFor='images'>
           <Button variant='contained' color='primary' component='span'>
             Select Images
           </Button>
-        </label> */}
-        {images.length > 0 ? (
-          <Typography>{images.length} images selected</Typography>
-        ) : (
-          <div></div>
-        )}
-        <Button onClick={onImageUpload}>Button</Button>
+          {images.length > 0 ? (
+            <Typography component='span'>
+              &nbsp;&nbsp;{images.length} images selected
+              <br />
+            </Typography>
+          ) : (
+            <div></div>
+          )}
+        </label>
+        <Button onClick={onImageUpload}>Upload</Button>
       </form>
     </div>
   )
