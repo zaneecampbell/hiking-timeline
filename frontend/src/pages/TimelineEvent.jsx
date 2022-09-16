@@ -145,16 +145,15 @@ function TimelineEvent() {
   return (
     <div>
       {when} - {where}
-      <form onSubmit={onImageUpload} noValidate>
+      <form onSubmit={onImageUpload}>
         <Input
           style={{ display: 'none' }}
           id='images'
           label='Images'
           type='file'
           name='images'
-          accept='jpg,.png,.jpeg'
           onChange={onMutate}
-          inputProps={{ max: '5', multiple: true }}
+          inputProps={{ max: '5', multiple: true, accept: '.jpg,.png,.jpeg' }}
           required
         />
         <label htmlFor='images'>
