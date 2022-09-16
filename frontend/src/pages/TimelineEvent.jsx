@@ -36,6 +36,7 @@ function TimelineEvent() {
   const { id } = useParams()
 
   useEffect(() => {
+    // If console goes nuts come back here
     if (isError) {
       toast.error(message)
     }
@@ -44,11 +45,15 @@ function TimelineEvent() {
 
     dispatch(clearSuccess())
     dispatch(getTimeline(idData))
-  }, [])
+  }, [isError])
 
   const { images } = formData
 
   if (!timeline) {
+    return <>No timeline event found</>
+  }
+
+  if (!timeline.when && !timeline.where) {
     return <>No timeline event found</>
   }
 
@@ -65,6 +70,16 @@ function TimelineEvent() {
 
   const onImageUpload = async e => {
     e.preventDefault()
+
+    if (images.length > 5) {
+      toast.error('Please select up to 5 images')
+      return
+    }
+
+    if (images.length === undefined) {
+      toast.error('Please select at least 1 image')
+      return
+    }
 
     // Store image in firebase
     const storeImage = async image => {
@@ -116,6 +131,12 @@ function TimelineEvent() {
       return
     })
 
+    // reset input after upload
+    setFormData(prevState => ({
+      ...prevState,
+      images: {}
+    }))
+
     // got Imgurls time to put them in the timeline event mongoDB part
     console.log(imgUrls)
   }
@@ -123,7 +144,7 @@ function TimelineEvent() {
   return (
     <div>
       {when} - {where}
-      <form onSubmit={onImageUpload}>
+      <form onSubmit={onImageUpload} noValidate>
         <Input
           style={{ display: 'none' }}
           id='images'
@@ -132,11 +153,16 @@ function TimelineEvent() {
           name='images'
           accept='jpg,.png,.jpeg'
           onChange={onMutate}
-          inputProps={{ max: '6', multiple: true }}
+          inputProps={{ max: '5', multiple: true }}
           required
         />
         <label htmlFor='images'>
-          <Button variant='contained' color='primary' component='span'>
+          <Button
+            type='button'
+            variant='contained'
+            color='primary'
+            component='span'
+          >
             Select Images
           </Button>
           {images.length > 0 ? (
@@ -148,7 +174,10 @@ function TimelineEvent() {
             <div></div>
           )}
         </label>
-        <Button type='submit'>Upload</Button>
+        <br />
+        <Button variant='contained' type='submit'>
+          Upload
+        </Button>
       </form>
     </div>
   )
