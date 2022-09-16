@@ -53,7 +53,8 @@ function TimelineEvent() {
     return <>No timeline event found</>
   }
 
-  if (!timeline.when && !timeline.where) {
+  if (!timeline.when) {
+    toast.error('Event not found')
     return <>No timeline event found</>
   }
 
