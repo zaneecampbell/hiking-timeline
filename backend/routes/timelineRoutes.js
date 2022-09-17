@@ -10,6 +10,6 @@ const { protect } = require('../middleware/authMiddleware')
 
 router.post('/', protect, createTimeline)
 router.post('/getOne', getTimeline)
-router.patch('/updateImgUrls', updateImgUrls)
+router.patch(`/updateImgUrls/:id`, updateImgUrls)
 
 module.exports = router
