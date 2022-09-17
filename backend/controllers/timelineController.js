@@ -55,8 +55,25 @@ const getTimeline = asyncHandler(async (req, res) => {
 })
 
 // Create an upload image urls function
+const updateImgUrls = asyncHandler(async (req, res) => {
+  const timeline = await Timeline.findById(req.body.id)
+
+  if (!timeline) {
+    res.status(404)
+    throw new Error('Event not found')
+  }
+
+  const updatedTimeline = await Timeline.findByIdAndUpdate(
+    req.body.id,
+    req.body,
+    { new: true }
+  )
+
+  res.status(200).json(updatedTimeline)
+})
 
 module.exports = {
   createTimeline,
-  getTimeline
+  getTimeline,
+  updateImgUrls
 }
