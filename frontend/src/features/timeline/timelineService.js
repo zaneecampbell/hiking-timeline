@@ -27,7 +27,6 @@ const getTimeline = async id => {
 // update timeline event
 const updateImgUrls = async data => {
   const { id, imgUrls } = data
-  console.log(imgUrls)
   const response = await axios.patch(API_URL + `updateImgUrls/${id}`, {
     imgUrls
   })

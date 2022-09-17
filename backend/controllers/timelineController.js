@@ -59,8 +59,8 @@ const updateImgUrls = asyncHandler(async (req, res) => {
   const { imgUrls } = req.body
   const { id } = req.params
 
-  const updatedTimeline = await Timeline.findOneAndUpdate(
-    { id },
+  const updatedTimeline = await Timeline.findByIdAndUpdate(
+    id,
     {
       $push: { imgUrls: { $each: imgUrls } }
     },
