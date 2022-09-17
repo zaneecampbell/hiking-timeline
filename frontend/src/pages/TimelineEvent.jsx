@@ -6,6 +6,7 @@ import {
   clearSuccess,
   clearError,
   getTimeline,
+  updateImgUrls,
   reset
 } from '../features/timeline/timelineSlice'
 import {
@@ -45,7 +46,7 @@ function TimelineEvent() {
 
     dispatch(clearSuccess())
     dispatch(getTimeline(idData))
-  }, [isError])
+  }, [isError, id, message, dispatch])
 
   const { images } = formData
 
@@ -86,6 +87,7 @@ function TimelineEvent() {
     const storeImage = async image => {
       return new Promise((resolve, reject) => {
         const storage = getStorage()
+        // Think about changing this naming structure using the name in user
         const fileName = `${user._id}-${uuidv4()}`
         console.log(fileName)
 
@@ -131,6 +133,10 @@ function TimelineEvent() {
       toast.error('Images not uploaded')
       return
     })
+
+    //////////////////////////////////////// Here
+    const data = { imgUrls, id }
+    dispatch(updateImgUrls(data))
 
     // reset input after upload
     setFormData(prevState => ({
@@ -179,6 +185,18 @@ function TimelineEvent() {
           Upload
         </Button>
       </form>
+      {timeline.imgUrls.length > 0 ? (
+        timeline.imgUrls.map((image, idx) => (
+          <img
+            key={idx}
+            src={image}
+            alt={'timeline event'}
+            height='500px'
+          ></img>
+        ))
+      ) : (
+        <></>
+      )}
     </div>
   )
 }

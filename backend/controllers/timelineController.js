@@ -58,7 +58,6 @@ const getTimeline = asyncHandler(async (req, res) => {
 const updateImgUrls = asyncHandler(async (req, res) => {
   const { imgUrls } = req.body
   const { id } = req.params
-  console.log(imgUrls)
 
   const updatedTimeline = await Timeline.findOneAndUpdate(
     { id },

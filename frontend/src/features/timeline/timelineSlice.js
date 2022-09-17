@@ -1,3 +1,4 @@
+import { async } from '@firebase/util'
 import { sliderClasses } from '@mui/material'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import timelineService from './timelineService'
@@ -50,6 +51,25 @@ export const getTimeline = createAsyncThunk(
   }
 )
 
+// Update timeline event with images
+export const updateImgUrls = createAsyncThunk(
+  'timeline/updateImgUrls/:id',
+  async (data, thunkAPI) => {
+    try {
+      return await timelineService.updateImgUrls(data)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
+
 export const timelineSlice = createSlice({
   name: 'timeline',
   initialState,
@@ -60,7 +80,6 @@ export const timelineSlice = createSlice({
       state.isSuccess = false
       state.isGot = false
       state.message = ''
-      state.timeline = null
     },
     clearSuccess: state => {
       state.isSuccess = false

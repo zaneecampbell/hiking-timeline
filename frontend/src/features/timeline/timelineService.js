@@ -24,9 +24,21 @@ const getTimeline = async id => {
   return response.data
 }
 
+// update timeline event
+const updateImgUrls = async data => {
+  const { id, imgUrls } = data
+  console.log(imgUrls)
+  const response = await axios.patch(API_URL + `updateImgUrls/${id}`, {
+    imgUrls
+  })
+  console.log(response.data)
+  return
+}
+
 const timelineService = {
   createTimeline,
-  getTimeline
+  getTimeline,
+  updateImgUrls
 }
 
 export default timelineService
