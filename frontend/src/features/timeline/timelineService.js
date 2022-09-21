@@ -31,7 +31,7 @@ const updateImgUrls = async data => {
     imgUrls
   })
   console.log(response.data)
-  return
+  return response.data
 }
 
 const timelineService = {
