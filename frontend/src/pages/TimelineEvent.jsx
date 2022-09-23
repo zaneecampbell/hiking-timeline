@@ -193,20 +193,16 @@ function TimelineEvent() {
             margin: 'auto',
             marginTop: '15px',
             marginBottom: '15px',
-            height: window.innerHeight / 1.25,
             width: window.innerWidth / 1.15
           }}
-          cols={1}
+          variant='masonry'
+          cols={2}
+          gap={8}
         >
           {timeline.imgUrls.length > 0 ? (
             timeline.imgUrls.map((image, idx) => (
               <ImageListItem key={idx}>
-                <img
-                  key={idx}
-                  src={image}
-                  alt={'timeline event'}
-                  height='500px'
-                ></img>
+                <img key={idx} src={image} alt={'timeline event'}></img>
               </ImageListItem>
             ))
           ) : (
