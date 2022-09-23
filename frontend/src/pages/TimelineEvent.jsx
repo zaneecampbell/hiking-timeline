@@ -17,6 +17,8 @@ import {
 } from 'firebase/storage'
 import { db } from '../firebase.config'
 import TextField from '@mui/material/TextField'
+import ImageList from '@mui/material/ImageList'
+import ImageListItem from '@mui/material/ImageListItem'
 import Input from '@mui/material/Input'
 import Button from '@mui/material/Button'
 import Spinner from '../components/Spinner'
@@ -50,6 +52,7 @@ function TimelineEvent() {
 
   const { images } = formData
 
+  // Make 404 page /////////////////////////////////
   if (!timeline) {
     return <>No timeline event found</>
   }
@@ -73,7 +76,8 @@ function TimelineEvent() {
   const onImageUpload = async e => {
     e.preventDefault()
 
-    if (images.length > 5) {
+    // Change down to 5 later!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!
+    if (images.length > 35) {
       toast.error('Please select up to 5 images')
       return
     }
@@ -126,6 +130,7 @@ function TimelineEvent() {
       })
     }
 
+    // stores all the images in storage
     const imgUrls = await Promise.all(
       [...images].map(image => storeImage(image))
     ).catch(() => {
@@ -134,7 +139,6 @@ function TimelineEvent() {
       return
     })
 
-    //////////////////////////////////////// Here
     const data = { imgUrls, id }
     dispatch(updateImgUrls(data))
 
@@ -143,9 +147,6 @@ function TimelineEvent() {
       ...prevState,
       images: {}
     }))
-
-    // got Imgurls time to put them in the timeline event mongoDB part
-    console.log(imgUrls)
   }
 
   return (
@@ -185,18 +186,34 @@ function TimelineEvent() {
           Upload
         </Button>
       </form>
-      {timeline.imgUrls.length > 0 ? (
-        timeline.imgUrls.map((image, idx) => (
-          <img
-            key={idx}
-            src={image}
-            alt={'timeline event'}
-            height='500px'
-          ></img>
-        ))
-      ) : (
-        <></>
-      )}
+      {/* Make the images pretty /////////////////////////////////// */}
+      <div>
+        <ImageList
+          sx={{
+            margin: 'auto',
+            marginTop: '15px',
+            marginBottom: '15px',
+            height: window.innerHeight / 1.25,
+            width: window.innerWidth / 1.15
+          }}
+          cols={1}
+        >
+          {timeline.imgUrls.length > 0 ? (
+            timeline.imgUrls.map((image, idx) => (
+              <ImageListItem key={idx}>
+                <img
+                  key={idx}
+                  src={image}
+                  alt={'timeline event'}
+                  height='500px'
+                ></img>
+              </ImageListItem>
+            ))
+          ) : (
+            <></>
+          )}
+        </ImageList>
+      </div>
     </div>
   )
 }
