@@ -25,7 +25,13 @@ import Spinner from '../components/Spinner'
 import { v4 as uuidv4 } from 'uuid'
 import { Typography } from '@mui/material'
 
-// If timeline not found error message not displaying
+// TODOS:
+// Think about changing the file naming structure using the name in user + timestamp
+// 404 page update better
+// Loading on image upload
+// Notification on failure of upload
+// Change max number of uploadable images down to 5 again
+// Make a way to delete images
 
 function TimelineEvent() {
   const dispatch = useDispatch()
@@ -52,7 +58,6 @@ function TimelineEvent() {
 
   const { images } = formData
 
-  // Make 404 page /////////////////////////////////
   if (!timeline) {
     return <>No timeline event found</>
   }
@@ -76,7 +81,6 @@ function TimelineEvent() {
   const onImageUpload = async e => {
     e.preventDefault()
 
-    // Change down to 5 later!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!
     if (images.length > 35) {
       toast.error('Please select up to 5 images')
       return
@@ -91,7 +95,6 @@ function TimelineEvent() {
     const storeImage = async image => {
       return new Promise((resolve, reject) => {
         const storage = getStorage()
-        // Think about changing this naming structure using the name in user
         const fileName = `${user.name}-${uuidv4()}`
         console.log(fileName)
 
@@ -186,7 +189,6 @@ function TimelineEvent() {
           Upload
         </Button>
       </form>
-      {/* Make the images pretty /////////////////////////////////// */}
       <div>
         <ImageList
           sx={{
