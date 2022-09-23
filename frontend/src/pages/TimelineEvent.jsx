@@ -92,7 +92,7 @@ function TimelineEvent() {
       return new Promise((resolve, reject) => {
         const storage = getStorage()
         // Think about changing this naming structure using the name in user
-        const fileName = `${user._id}-${uuidv4()}`
+        const fileName = `${user.name}-${uuidv4()}`
         console.log(fileName)
 
         const storageRef = ref(storage, 'images/' + fileName)
