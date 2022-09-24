@@ -26,6 +26,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { Typography } from '@mui/material'
 
 // TODOS:
+// Click image open single instance of just that image (maybe in a modal)
 // Think about changing the file naming structure using the name in user + timestamp
 // 404 page update better
 // Loading on image upload
@@ -154,41 +155,50 @@ function TimelineEvent() {
 
   return (
     <div>
-      {when} - {where}
-      <form onSubmit={onImageUpload}>
-        <Input
-          style={{ display: 'none' }}
-          id='images'
-          label='Images'
-          type='file'
-          name='images'
-          onChange={onMutate}
-          inputProps={{ max: '5', multiple: true, accept: '.jpg,.png,.jpeg' }}
-          required
-        />
-        <label htmlFor='images'>
-          <Button
-            type='button'
-            variant='contained'
-            color='primary'
-            component='span'
-          >
-            Select Images
+      <span>
+        <div style={{ marginTop: '15px' }}>
+          <Typography variant='h2' style={{ textAlign: 'center' }}>
+            {where}
+          </Typography>
+          <Typography variant='h5' style={{ textAlign: 'center' }}>
+            {when}
+          </Typography>
+        </div>
+        <form onSubmit={onImageUpload}>
+          <Input
+            style={{ display: 'none' }}
+            id='images'
+            label='Images'
+            type='file'
+            name='images'
+            onChange={onMutate}
+            inputProps={{ max: '5', multiple: true, accept: '.jpg,.png,.jpeg' }}
+            required
+          />
+          <label htmlFor='images'>
+            <Button
+              type='button'
+              variant='contained'
+              color='primary'
+              component='span'
+            >
+              Select Images
+            </Button>
+            {images.length > 0 ? (
+              <Typography component='span'>
+                &nbsp;&nbsp;{images.length} images selected
+                <br />
+              </Typography>
+            ) : (
+              <div></div>
+            )}
+          </label>
+          <br />
+          <Button variant='contained' type='submit'>
+            Upload
           </Button>
-          {images.length > 0 ? (
-            <Typography component='span'>
-              &nbsp;&nbsp;{images.length} images selected
-              <br />
-            </Typography>
-          ) : (
-            <div></div>
-          )}
-        </label>
-        <br />
-        <Button variant='contained' type='submit'>
-          Upload
-        </Button>
-      </form>
+        </form>
+      </span>
       <div>
         <ImageList
           sx={{
