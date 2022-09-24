@@ -156,61 +156,69 @@ function TimelineEvent() {
   return (
     <div>
       <span>
-        <div style={{ marginTop: '15px' }}>
+        <div
+          style={{ marginTop: '15px', marginRight: '15px', marginLeft: '15px' }}
+        >
           <Typography variant='h2' style={{ textAlign: 'center' }}>
             {where}
           </Typography>
           <Typography variant='h5' style={{ textAlign: 'center' }}>
             {when}
           </Typography>
-        </div>
-        <form onSubmit={onImageUpload}>
-          <Input
-            style={{ display: 'none' }}
-            id='images'
-            label='Images'
-            type='file'
-            name='images'
-            onChange={onMutate}
-            inputProps={{ max: '5', multiple: true, accept: '.jpg,.png,.jpeg' }}
-            required
-          />
-          <label htmlFor='images'>
-            <Button
-              type='button'
-              variant='contained'
-              color='primary'
-              component='span'
-            >
-              Select Images
+          <form
+            style={{ display: 'flex', justifyContent: 'space-evenly' }}
+            onSubmit={onImageUpload}
+          >
+            <Input
+              style={{ display: 'none' }}
+              id='images'
+              label='Images'
+              type='file'
+              name='images'
+              onChange={onMutate}
+              inputProps={{
+                max: '5',
+                multiple: true,
+                accept: '.jpg,.png,.jpeg'
+              }}
+              required
+            />
+            <label htmlFor='images'>
+              <Button
+                type='button'
+                variant='contained'
+                color='primary'
+                component='span'
+              >
+                Select Images
+              </Button>
+              {images.length > 0 ? (
+                <>
+                  <Typography component='span'>
+                    &nbsp;&nbsp;{images.length} images selected
+                    <br />
+                  </Typography>
+                </>
+              ) : (
+                <></>
+              )}
+            </label>
+            <br />
+            <Button variant='contained' type='submit'>
+              Upload
             </Button>
-            {images.length > 0 ? (
-              <Typography component='span'>
-                &nbsp;&nbsp;{images.length} images selected
-                <br />
-              </Typography>
-            ) : (
-              <div></div>
-            )}
-          </label>
-          <br />
-          <Button variant='contained' type='submit'>
-            Upload
-          </Button>
-        </form>
+          </form>
+        </div>
       </span>
-      <div>
-        <ImageList
-          sx={{
-            margin: 'auto',
-            marginTop: '15px',
-            marginBottom: '15px',
-            width: window.innerWidth / 1.15
-          }}
-          variant='masonry'
-          cols={2}
-          gap={8}
-        >
+      <div
+        style={{
+          margin: 'auto',
+          marginTop: '15px',
+          marginBottom: '15px',
+          width: window.innerWidth / 1.15
+        }}
+      >
+        <ImageList variant='masonry' cols={2} gap={8}>
           {timeline.imgUrls.length > 0 ? (
             timeline.imgUrls.map((image, idx) => (
               <ImageListItem key={idx}>
