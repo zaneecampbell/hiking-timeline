@@ -156,13 +156,14 @@ function TimelineEvent() {
   return (
     <div>
       <span>
-        <div
-          style={{ marginTop: '15px', marginRight: '15px', marginLeft: '15px' }}
-        >
+        <div style={{ margin: '15px' }}>
           <Typography variant='h2' style={{ textAlign: 'center' }}>
             {where}
           </Typography>
-          <Typography variant='h5' style={{ textAlign: 'center' }}>
+          <Typography
+            variant='h5'
+            style={{ textAlign: 'center', marginBottom: '15px' }}
+          >
             {when}
           </Typography>
           <form
