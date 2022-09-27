@@ -172,7 +172,7 @@ function TimelineEvent() {
         style={{
           margin: 'auto',
           marginTop: '15px',
-          marginBottom: '15px',
+          marginBottom: window.innerHeight / 15,
           width: window.innerWidth / 1.15
         }}
       >
@@ -190,21 +190,17 @@ function TimelineEvent() {
       </div>
       <div
         style={{
-          display: 'flex',
           position: 'fixed',
           bottom: '0',
           width: '100%',
-          height: window.innerHeight / 15
+          height: window.innerHeight / 20
         }}
       >
         <form
           style={{
             display: 'flex',
-            position: 'fixed',
-            bottom: '0',
-            width: '100%',
-            height: window.innerHeight / 18,
-            justifyContent: 'space-evenly'
+            justifyContent: 'space-evenly',
+            height: window.innerHeight / 20
           }}
           noValidate
           onSubmit={onImageUpload}
@@ -223,11 +219,11 @@ function TimelineEvent() {
             }}
             required
           />
-          <div>
+          <div style={{ width: '100%' }}>
             <label htmlFor='images'>
               <Button
                 style={{
-                  width: window.innerWidth / 2,
+                  width: '100%',
                   height: '100%',
                   borderRadius: '0'
                 }}
@@ -241,10 +237,10 @@ function TimelineEvent() {
               </Button>
             </label>
           </div>
-          <div>
+          <div style={{ width: '100%' }}>
             <Button
               style={{
-                width: window.innerWidth / 2,
+                width: '100%',
                 height: '100%',
                 borderRadius: '0'
               }}
