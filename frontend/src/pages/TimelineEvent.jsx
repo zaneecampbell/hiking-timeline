@@ -166,49 +166,6 @@ function TimelineEvent() {
           >
             {when}
           </Typography>
-          <form
-            style={{ display: 'flex', justifyContent: 'space-evenly' }}
-            onSubmit={onImageUpload}
-          >
-            <Input
-              style={{ display: 'none' }}
-              id='images'
-              label='Images'
-              type='file'
-              name='images'
-              onChange={onMutate}
-              inputProps={{
-                max: '5',
-                multiple: true,
-                accept: '.jpg,.png,.jpeg'
-              }}
-              required
-            />
-            <label htmlFor='images'>
-              <Button
-                type='button'
-                variant='contained'
-                color='primary'
-                component='span'
-              >
-                Select Images
-              </Button>
-              {images.length > 0 ? (
-                <>
-                  <Typography component='span'>
-                    &nbsp;&nbsp;{images.length} images selected
-                    <br />
-                  </Typography>
-                </>
-              ) : (
-                <></>
-              )}
-            </label>
-            <br />
-            <Button variant='contained' type='submit'>
-              Upload
-            </Button>
-          </form>
         </div>
       </span>
       <div
@@ -230,6 +187,74 @@ function TimelineEvent() {
             <></>
           )}
         </ImageList>
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          position: 'fixed',
+          bottom: '0',
+          width: '100%',
+          height: window.innerHeight / 15
+        }}
+      >
+        <form
+          style={{
+            display: 'flex',
+            position: 'fixed',
+            bottom: '0',
+            width: '100%',
+            height: window.innerHeight / 18,
+            justifyContent: 'space-evenly'
+          }}
+          noValidate
+          onSubmit={onImageUpload}
+        >
+          <Input
+            style={{ display: 'none' }}
+            id='images'
+            label='Images'
+            type='file'
+            name='images'
+            onChange={onMutate}
+            inputProps={{
+              max: '5',
+              multiple: true,
+              accept: '.jpg,.png,.jpeg'
+            }}
+            required
+          />
+          <div>
+            <label htmlFor='images'>
+              <Button
+                style={{
+                  width: window.innerWidth / 2,
+                  height: '100%',
+                  borderRadius: '0'
+                }}
+                type='button'
+                variant='contained'
+                color='primary'
+                component='span'
+              >
+                Select Images
+                {images.length > 0 ? <>&nbsp;&nbsp;({images.length})</> : <></>}
+              </Button>
+            </label>
+          </div>
+          <div>
+            <Button
+              style={{
+                width: window.innerWidth / 2,
+                height: '100%',
+                borderRadius: '0'
+              }}
+              variant='contained'
+              type='submit'
+            >
+              Upload
+            </Button>
+          </div>
+        </form>
       </div>
     </div>
   )
