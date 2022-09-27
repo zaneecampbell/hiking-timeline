@@ -45,6 +45,8 @@ function TimelineEvent() {
 
   const { id } = useParams()
 
+  const colSize = window.innerWidth > 1000 ? 2 : 1
+
   useEffect(() => {
     // If console goes nuts come back here
     if (isError) {
@@ -155,39 +157,40 @@ function TimelineEvent() {
 
   return (
     <div>
-      <span>
-        <div style={{ margin: '15px' }}>
-          <Typography variant='h2' style={{ textAlign: 'center' }}>
-            {where}
-          </Typography>
-          <Typography
-            variant='h5'
-            style={{ textAlign: 'center', marginBottom: '15px' }}
-          >
-            {when}
-          </Typography>
-        </div>
-      </span>
-      <div
+      <div style={{ margin: '15px', marginBottom: '30px' }}>
+        <Typography variant='h2' style={{ textAlign: 'center' }}>
+          {where}
+        </Typography>
+        <Typography variant='h5' style={{ textAlign: 'center' }}>
+          {when}
+        </Typography>
+      </div>
+      <ImageList
         style={{
           margin: 'auto',
           marginTop: '15px',
           marginBottom: window.innerHeight / 15,
-          width: window.innerWidth / 1.15
+          width: '88%'
         }}
+        variant='masonry'
+        cols={colSize}
+        gap={8}
       >
-        <ImageList variant='masonry' cols={2} gap={8}>
-          {timeline.imgUrls.length > 0 ? (
-            timeline.imgUrls.map((image, idx) => (
-              <ImageListItem key={idx}>
-                <img key={idx} src={image} alt={'timeline event'}></img>
-              </ImageListItem>
-            ))
-          ) : (
-            <></>
-          )}
-        </ImageList>
-      </div>
+        {timeline.imgUrls.length > 0 ? (
+          timeline.imgUrls.map((image, idx) => (
+            <ImageListItem key={idx}>
+              <img
+                key={idx}
+                src={`${image}?w=248&fit=crop&auto=format`}
+                alt={'timeline event'}
+                loading='lazy'
+              ></img>
+            </ImageListItem>
+          ))
+        ) : (
+          <></>
+        )}
+      </ImageList>
       <div
         style={{
           position: 'fixed',
