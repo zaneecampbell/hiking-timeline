@@ -2,6 +2,28 @@ const asyncHandler = require('express-async-handler')
 
 const Timeline = require('../models/timelineModel')
 
+// @desc    Get the timeline
+// @route   /api/timeline
+// @access  Public
+const getTimelines = asyncHandler(async (req, res) => {
+  const timelineData = await Timeline.find()
+
+  if (!timelineData) {
+    res.status(400)
+    throw new Error("Couldn't fetch timeline")
+  }
+
+  const timeline = []
+
+  timelineData.map(event => {
+    const { when, where, _id } = event
+    const timelineUpdated = { _id, when, where }
+    timeline.push(timelineUpdated)
+  })
+
+  res.send(timeline)
+})
+
 // @desc    Create a new timeline piece
 // @route   /api/timeline
 // @access  Private
@@ -71,6 +93,7 @@ const updateImgUrls = asyncHandler(async (req, res) => {
 })
 
 module.exports = {
+  getTimelines,
   createTimeline,
   getTimeline,
   updateImgUrls

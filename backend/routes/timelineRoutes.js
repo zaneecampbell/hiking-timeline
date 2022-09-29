@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const {
+  getTimelines,
   createTimeline,
   getTimeline,
   updateImgUrls
@@ -8,6 +9,7 @@ const {
 
 const { protect } = require('../middleware/authMiddleware')
 
+router.get('/', getTimelines)
 router.post('/', protect, createTimeline)
 router.post('/getOne', getTimeline)
 router.patch(`/updateImgUrls/:id`, updateImgUrls)

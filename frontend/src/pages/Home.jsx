@@ -1,14 +1,50 @@
-import Spinner from '../components/Spinner'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 import {
   VerticalTimeline,
   VerticalTimelineElement
 } from 'react-vertical-timeline-component'
 import 'react-vertical-timeline-component/style.min.css'
 import { FaSignInAlt, FaSignOutAlt, FaUser, FaPlusCircle } from 'react-icons/fa'
+import Button from '@mui/material/Button'
+import Spinner from '../components/Spinner'
 
 function Home() {
+  const [timelineData, setTimelineData] = useState({
+    timeline: []
+  })
+
+  const { timeline } = timelineData
+
+  useEffect(() => {
+    async function fetchTimeline() {
+      try {
+        const timelineGet = await axios.get('/api/timeline/')
+        const timeline = timelineGet.data
+        setTimelineData(prevState => ({
+          ...prevState,
+          timeline
+        }))
+      } catch (error) {
+        toast.error('Unable to fetch timeline')
+      }
+    }
+
+    fetchTimeline()
+  }, [])
+
+  const onClick = () => {
+    console.log(timelineData.timeline)
+  }
+
+  if (timeline.length < 1) {
+    return <Spinner />
+  }
+
   return (
     <div>
+      <Button onClick={onClick}>Here</Button>
       <VerticalTimeline lineColor='#00813a'>
         <VerticalTimelineElement
           className='vertical-timeline-element--work'
