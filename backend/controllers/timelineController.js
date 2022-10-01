@@ -22,6 +22,9 @@ const getTimelines = asyncHandler(async (req, res) => {
     timeline.push(timelineUpdated)
   })
 
+  timeline.sort((a, b) => new Date(b.when) - new Date(a.when))
+  console.log(timeline)
+
   res.send(timeline)
 })
 
