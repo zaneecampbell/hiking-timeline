@@ -49,33 +49,36 @@ function Home() {
     <div>
       <VerticalTimeline lineColor='#00813a'>
         {timeline.map((event, idx) => (
-          <div key={idx}>
-            <VerticalTimelineElement
-              date={event.when}
-              iconStyle={{ background: `rgb(33, 150, 243)`, color: '#fff' }}
-              icon={<FaSignInAlt />}
+          <VerticalTimelineElement
+            key={idx}
+            date={event.when}
+            iconStyle={{ background: `rgb(33, 150, 243)`, color: '#fff' }}
+            icon={<FaSignInAlt />}
+          >
+            <h1
+              style={{ textAlign: 'center' }}
+              className='vertical-timeline-element-title'
             >
-              <h1
-                style={{ textAlign: 'center' }}
-                className='vertical-timeline-element-title'
-              >
-                {event.where}
-              </h1>
+              {event.where}
+            </h1>
+            {event.titleImg ? (
               <img
                 style={{ width: '100%', height: '100%' }}
                 src={`${event.titleImg}`}
                 alt='Hike Title Image'
                 loading='lazy'
               />
-              <Button
-                style={{ width: '100%' }}
-                variant='contained'
-                onClick={() => onClick(event._id)}
-              >
-                View
-              </Button>
-            </VerticalTimelineElement>
-          </div>
+            ) : (
+              <>Hike Title Image</>
+            )}
+            <Button
+              style={{ width: '100%' }}
+              variant='contained'
+              onClick={() => onClick(event._id)}
+            >
+              View
+            </Button>
+          </VerticalTimelineElement>
         ))}
         <VerticalTimelineElement
           className='vertical-timeline-element--education'

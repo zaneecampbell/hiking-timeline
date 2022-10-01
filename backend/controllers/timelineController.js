@@ -17,13 +17,12 @@ const getTimelines = asyncHandler(async (req, res) => {
 
   timelineData.map(event => {
     const { when, where, _id, imgUrls } = event
-    titleImg = imgUrls[0]
+    const titleImg = imgUrls[0]
     const timelineUpdated = { _id, when, where, titleImg }
     timeline.push(timelineUpdated)
   })
 
   timeline.sort((a, b) => new Date(b.when) - new Date(a.when))
-  console.log(timeline)
 
   res.send(timeline)
 })
