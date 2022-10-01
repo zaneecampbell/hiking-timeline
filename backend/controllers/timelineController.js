@@ -16,8 +16,9 @@ const getTimelines = asyncHandler(async (req, res) => {
   const timeline = []
 
   timelineData.map(event => {
-    const { when, where, _id } = event
-    const timelineUpdated = { _id, when, where }
+    const { when, where, _id, imgUrls } = event
+    titleImg = imgUrls[0]
+    const timelineUpdated = { _id, when, where, titleImg }
     timeline.push(timelineUpdated)
   })
 
