@@ -7,7 +7,7 @@ import {
   VerticalTimelineElement
 } from 'react-vertical-timeline-component'
 import 'react-vertical-timeline-component/style.min.css'
-import { FaSignInAlt, FaArrowAltCircleUp } from 'react-icons/fa'
+import { FaArrowAltCircleUp, FaHiking } from 'react-icons/fa'
 import Button from '@mui/material/Button'
 import Spinner from '../components/Spinner'
 
@@ -53,7 +53,7 @@ function Home() {
             key={idx}
             date={event.when}
             iconStyle={{ background: `rgb(33, 150, 243)`, color: '#fff' }}
-            icon={<FaSignInAlt />}
+            icon={<FaHiking />}
           >
             <h1
               style={{ textAlign: 'center' }}
@@ -63,9 +63,13 @@ function Home() {
             </h1>
             {event.titleImg ? (
               <img
-                style={{ width: '100%', height: '100%' }}
+                style={{
+                  width: '100%',
+                  height: '250px',
+                  objectFit: 'scale-down'
+                }}
                 src={`${event.titleImg}`}
-                alt='Hike Title Image'
+                alt='Hike Title'
                 loading='lazy'
               />
             ) : (
@@ -80,11 +84,11 @@ function Home() {
             </Button>
           </VerticalTimelineElement>
         ))}
-        <VerticalTimelineElement
+        {/* <VerticalTimelineElement
           className='vertical-timeline-element--education'
           date='2002 - 2006'
           iconStyle={{ background: 'rgb(233, 30, 99)', color: '#fff' }}
-          icon={<FaSignInAlt />}
+          icon={<FaHiking />}
         >
           <h3 className='vertical-timeline-element-title'>
             Bachelor of Science in Interactive Digital Media Visual Imaging
@@ -93,11 +97,13 @@ function Home() {
             Bachelor Degree
           </h4>
           <p>Creative Direction, Visual Design</p>
-        </VerticalTimelineElement>
-        <VerticalTimelineElement
-          iconStyle={{ background: 'rgb(233, 30, 99)', color: '#fff' }}
-          icon={<FaArrowAltCircleUp />}
-        />
+        </VerticalTimelineElement> */}
+        <a style={{ width: '200px', height: '200px' }} href='#Top'>
+          <VerticalTimelineElement
+            iconStyle={{ background: 'rgb(233, 30, 99)', color: '#fff' }}
+            icon={<FaArrowAltCircleUp />}
+          ></VerticalTimelineElement>
+        </a>
       </VerticalTimeline>
     </div>
   )
