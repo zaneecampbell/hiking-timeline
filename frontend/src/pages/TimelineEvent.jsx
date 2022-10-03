@@ -146,6 +146,8 @@ function TimelineEvent() {
       return
     })
 
+    console.log('what')
+
     const data = { imgUrls, id }
     dispatch(updateImgUrls(data))
 
