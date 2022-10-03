@@ -21,9 +21,9 @@ app.use('/api/timeline', require('./routes/timelineRoutes'))
 // Serve frontend
 if (process.env.NODE_ENV === 'production') {
   app.use(
-    express.static(
-      path.join(__dirname, '../frontend/build', { dotfiles: 'allow' })
-    )
+    express.static(path.join(__dirname, '../frontend/build'), {
+      dotfiles: 'allow'
+    })
   )
 
   app.get('*', (req, res) =>
