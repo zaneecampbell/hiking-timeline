@@ -56,7 +56,12 @@ function TimelineEvent() {
     const idData = { id }
 
     dispatch(clearSuccess())
-    dispatch(getTimeline(idData))
+
+    try {
+      dispatch(getTimeline(idData))
+    } catch (error) {
+      toast.error('Something went wrong')
+    }
   }, [isError, id, message, dispatch])
 
   const { images } = formData
