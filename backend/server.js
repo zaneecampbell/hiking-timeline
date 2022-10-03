@@ -15,10 +15,6 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to hiking timeline' })
-})
-
 app.use('/api/users', require('./routes/userRoutes'))
 app.use('/api/timeline', require('./routes/timelineRoutes'))
 
