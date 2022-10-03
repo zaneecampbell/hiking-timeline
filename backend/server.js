@@ -25,7 +25,7 @@ app.use('/api/timeline', require('./routes/timelineRoutes'))
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
   // Set build folder as static
-  app.use(express.static(path.join(__dirname, '../fronte/build')))
+  app.use(express.static(path.join(__dirname, '../frontend/build')))
 
   app.get('*', (req, res) =>
     res.sendFile(__dirname, '../', 'frontend', 'build', 'index.html')
