@@ -18,18 +18,21 @@ app.use(express.urlencoded({ extended: false }))
 app.use('/api/users', require('./routes/userRoutes'))
 app.use('/api/timeline', require('./routes/timelineRoutes'))
 
-// Serve static assets in production
+// Serve frontend
 if (process.env.NODE_ENV === 'production') {
-  // Set build folder as static
-  app.use(express.static(path.join(__dirname, '../frontend/build')))
+  app.use(
+    express.static(
+      path.join(__dirname, '../frontend/build', { dotfiles: 'allow' })
+    )
+  )
 
   app.get('*', (req, res) =>
-    res.sendFile(__dirname, '../', 'frontend', 'build', 'index.html')
+    res.sendFile(
+      path.resolve(__dirname, '../', 'frontend', 'build', 'index.html')
+    )
   )
 } else {
-  app.get('/', (req, res) => {
-    res.json({ message: 'Welcome to hiking timeline by Zane' })
-  })
+  app.get('/', (req, res) => res.send('Please set to production'))
 }
 
 app.use(errorHandler)
