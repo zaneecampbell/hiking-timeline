@@ -11,15 +11,6 @@ connectDB()
 
 const app = express()
 
-// Allows express to parse json data
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
-
-app.use('/api/users', require('./routes/userRoutes'))
-app.use('/api/timeline', require('./routes/timelineRoutes'))
-
-app.use(errorHandler)
-
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
   // Set build folder as static
@@ -33,5 +24,14 @@ if (process.env.NODE_ENV === 'production') {
     res.json({ message: 'Welcome to hiking timeline by Zane' })
   })
 }
+
+// Allows express to parse json data
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+
+app.use('/api/users', require('./routes/userRoutes'))
+app.use('/api/timeline', require('./routes/timelineRoutes'))
+
+app.use(errorHandler)
 
 app.listen(process.env.PORT || 5000, () => console.log(`Server started`))
