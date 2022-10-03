@@ -15,7 +15,6 @@ import {
   uploadBytesResumable,
   getDownloadURL
 } from 'firebase/storage'
-import { db } from '../firebase.config'
 import TextField from '@mui/material/TextField'
 import ImageList from '@mui/material/ImageList'
 import ImageListItem from '@mui/material/ImageListItem'
