@@ -98,6 +98,7 @@ function TimelineEvent() {
     const storeImage = async image => {
       return new Promise((resolve, reject) => {
         const storage = getStorage()
+        console.log(storage)
         const fileName = `${user.name}-${uuidv4()}`
         console.log(fileName)
 

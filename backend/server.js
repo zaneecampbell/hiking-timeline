@@ -4,7 +4,7 @@ const colors = require('colors')
 const dotenv = require('dotenv').config()
 const { errorHandler } = require('./middleware/errorMiddleware')
 const connectDB = require('./config/db')
-const PORT = process.env.PORT || 5000
+// const PORT = process.env.PORT || 5000
 
 // Connect to database
 connectDB()
@@ -17,6 +17,8 @@ app.use(express.urlencoded({ extended: false }))
 
 app.use('/api/users', require('./routes/userRoutes'))
 app.use('/api/timeline', require('./routes/timelineRoutes'))
+
+app.use(errorHandler)
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
@@ -32,6 +34,6 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
-app.use(errorHandler)
-
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
+app.listen(process.env.PORT || 5000, () =>
+  console.log(`Server started on port ${PORT}`)
+)
