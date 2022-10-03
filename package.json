@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Hiking timeline",
   "main": "server.js",
+  "engines": {"node": "16.15.0"},
   "scripts": {
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
