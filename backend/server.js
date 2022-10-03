@@ -32,7 +32,7 @@ if (process.env.NODE_ENV === 'production') {
   )
 } else {
   app.get('/', (req, res) => {
-    res.json({ message: 'Welcome to hiking timeline' })
+    res.json({ message: 'Welcome to hiking timeline by Zane' })
   })
 }
 
