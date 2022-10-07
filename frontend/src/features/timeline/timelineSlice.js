@@ -75,6 +75,7 @@ export const timelineSlice = createSlice({
   initialState,
   reducers: {
     reset: state => {
+      state.timeline = null
       state.isLoading = false
       state.isError = false
       state.isSuccess = false

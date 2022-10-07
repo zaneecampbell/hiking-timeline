@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { reset } from '../features/timeline/timelineSlice'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import {
@@ -18,9 +20,12 @@ function Home() {
 
   const { timeline } = timelineData
 
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
+    dispatch(reset())
+
     async function fetchTimeline() {
       try {
         const timelineGet = await axios.get('/api/timeline/')
