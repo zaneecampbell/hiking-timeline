@@ -114,104 +114,106 @@ export default function HideAppBar(props) {
       <CssBaseline />
       <HideOnScroll {...props}>
         <AppBar>
-          <Toolbar>
-            <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
+          <Toolbar style={{ justifyContent: 'space-around' }}>
+            <Typography variant='h6' component='div'>
               <Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
                 Hiking Timeline
               </Link>
             </Typography>
             {/*If logged in show logout otherwise show register and login*/}
-            {user ? (
-              <Button color='inherit' sx={{ margin: 'auto' }}>
-                <Link
-                  to='/create'
-                  style={{ textDecoration: 'none', color: 'inherit' }}
-                >
-                  <FaPlusCircle />
-                  &nbsp;Create
-                </Link>
-              </Button>
-            ) : (
-              <></>
-            )}
-            {user ? (
-              <>
-                <Button color='inherit' onClick={onLogout}>
-                  <FaSignOutAlt />
-                  &nbsp;Logout
+            <div>
+              {user ? (
+                <Button color='inherit' sx={{ margin: 'auto' }}>
+                  <Link
+                    to='/create'
+                    style={{ textDecoration: 'none', color: 'inherit' }}
+                  >
+                    <FaPlusCircle />
+                    &nbsp;Create
+                  </Link>
                 </Button>
-              </>
-            ) : (
-              <>
-                <Button color='inherit' onClick={handleOpen}>
-                  <FaSignInAlt />
-                  &nbsp;Login
-                </Button>
-                <Modal
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby='modal-modal-title'
-                  aria-describedby='modal-modal-description'
-                >
-                  <Box sx={style}>
-                    <Typography variant='h3' gutterBottom component='div'>
-                      Login
-                    </Typography>
-                    <form onSubmit={e => onSubmit(e)}>
-                      <TextField
-                        fullWidth
-                        style={{ marginBottom: '10px' }}
-                        id='email'
-                        label='Email'
-                        type='email'
-                        name='email'
-                        value={email}
-                        onChange={onChange}
-                        variant='outlined'
-                      />
-                      <TextField
-                        fullWidth
-                        style={{ marginBottom: '10px' }}
-                        id='password'
-                        label='Password'
-                        type='password'
-                        name='password'
-                        value={password}
-                        onChange={onChange}
-                        autoComplete='current-password'
-                      />
-                      <Button
-                        style={{ float: 'left' }}
-                        variant='contained'
-                        type='submit'
-                      >
-                        Login
-                      </Button>
-                      <Link
-                        style={{
-                          textDecoration: 'none',
-                          color: 'inherit',
-                          float: 'right'
-                        }}
-                        onClick={handleClose}
-                        to='/register'
-                      >
-                        <Button variant='contained'>or Register here</Button>
-                      </Link>
-                    </form>
-                  </Box>
-                </Modal>
-                <Link
-                  style={{ textDecoration: 'none', color: 'inherit' }}
-                  to='/register'
-                >
-                  <Button color='inherit'>
-                    <FaUser />
-                    &nbsp;Register
+              ) : (
+                <></>
+              )}
+              {user ? (
+                <>
+                  <Button color='inherit' onClick={onLogout}>
+                    <FaSignOutAlt />
+                    &nbsp;Logout
                   </Button>
-                </Link>
-              </>
-            )}
+                </>
+              ) : (
+                <>
+                  <Button color='inherit' onClick={handleOpen}>
+                    <FaSignInAlt />
+                    &nbsp;Login
+                  </Button>
+                  <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby='modal-modal-title'
+                    aria-describedby='modal-modal-description'
+                  >
+                    <Box sx={style}>
+                      <Typography variant='h3' gutterBottom component='div'>
+                        Login
+                      </Typography>
+                      <form onSubmit={e => onSubmit(e)}>
+                        <TextField
+                          fullWidth
+                          style={{ marginBottom: '10px' }}
+                          id='email'
+                          label='Email'
+                          type='email'
+                          name='email'
+                          value={email}
+                          onChange={onChange}
+                          variant='outlined'
+                        />
+                        <TextField
+                          fullWidth
+                          style={{ marginBottom: '10px' }}
+                          id='password'
+                          label='Password'
+                          type='password'
+                          name='password'
+                          value={password}
+                          onChange={onChange}
+                          autoComplete='current-password'
+                        />
+                        <Button
+                          style={{ float: 'left' }}
+                          variant='contained'
+                          type='submit'
+                        >
+                          Login
+                        </Button>
+                        <Link
+                          style={{
+                            textDecoration: 'none',
+                            color: 'inherit',
+                            float: 'right'
+                          }}
+                          onClick={handleClose}
+                          to='/register'
+                        >
+                          <Button variant='contained'>or Register here</Button>
+                        </Link>
+                      </form>
+                    </Box>
+                  </Modal>
+                  <Link
+                    style={{ textDecoration: 'none', color: 'inherit' }}
+                    to='/register'
+                  >
+                    <Button color='inherit'>
+                      <FaUser />
+                      &nbsp;Register
+                    </Button>
+                  </Link>
+                </>
+              )}
+            </div>
           </Toolbar>
         </AppBar>
       </HideOnScroll>
