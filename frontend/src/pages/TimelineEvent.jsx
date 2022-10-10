@@ -178,7 +178,8 @@ function TimelineEvent() {
           margin: 'auto',
           marginTop: '15px',
           marginBottom: window.innerHeight / 15,
-          width: '88%'
+          width: '88%',
+          maxWidth: '1400px'
         }}
         variant='masonry'
         cols={colSize}
