@@ -200,70 +200,80 @@ function TimelineEvent() {
           <></>
         )}
       </ImageList>
-      <div
-        style={{
-          position: 'fixed',
-          bottom: '0',
-          width: '100%',
-          height: window.innerHeight / 20
-        }}
-      >
-        <form
+      {user ? (
+        <div
           style={{
-            display: 'flex',
-            justifyContent: 'space-evenly',
+            position: 'fixed',
+            bottom: '0',
+            width: '100%',
+            minHeight: '65px',
             height: window.innerHeight / 20
           }}
-          noValidate
-          onSubmit={onImageUpload}
         >
-          <Input
-            style={{ display: 'none' }}
-            id='images'
-            label='Images'
-            type='file'
-            name='images'
-            onChange={onMutate}
-            inputProps={{
-              max: '5',
-              multiple: true,
-              accept: '.jpg,.png,.jpeg'
+          <form
+            style={{
+              display: 'flex',
+              justifyContent: 'space-evenly',
+              height: window.innerHeight / 20,
+              minHeight: '65px'
             }}
-            required
-          />
-          <div style={{ width: '100%' }}>
-            <label htmlFor='images'>
+            noValidate
+            onSubmit={onImageUpload}
+          >
+            <Input
+              style={{ display: 'none' }}
+              id='images'
+              label='Images'
+              type='file'
+              name='images'
+              onChange={onMutate}
+              inputProps={{
+                max: '5',
+                multiple: true,
+                accept: '.jpg,.png,.jpeg'
+              }}
+              required
+            />
+            <div style={{ width: '100%' }}>
+              <label htmlFor='images'>
+                <Button
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: '0'
+                  }}
+                  type='button'
+                  variant='contained'
+                  color='primary'
+                  component='span'
+                >
+                  Select Images
+                  {images.length > 0 ? (
+                    <>&nbsp;&nbsp;({images.length})</>
+                  ) : (
+                    <></>
+                  )}
+                </Button>
+              </label>
+            </div>
+            <div style={{ width: '100%' }}>
               <Button
                 style={{
                   width: '100%',
                   height: '100%',
                   borderRadius: '0'
                 }}
-                type='button'
                 variant='contained'
-                color='primary'
-                component='span'
+                type='submit'
               >
-                Select Images
-                {images.length > 0 ? <>&nbsp;&nbsp;({images.length})</> : <></>}
+                Upload
               </Button>
-            </label>
-          </div>
-          <div style={{ width: '100%' }}>
-            <Button
-              style={{
-                width: '100%',
-                height: '100%',
-                borderRadius: '0'
-              }}
-              variant='contained'
-              type='submit'
-            >
-              Upload
-            </Button>
-          </div>
-        </form>
-      </div>
+            </div>
+          </form>
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   )
 }
