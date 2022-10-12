@@ -19,6 +19,7 @@ import { db } from '../firebase.config'
 import TextField from '@mui/material/TextField'
 import ImageList from '@mui/material/ImageList'
 import ImageListItem from '@mui/material/ImageListItem'
+import ImageListItemBar from '@mui/material/ImageListItemBar'
 import Input from '@mui/material/Input'
 import Button from '@mui/material/Button'
 import Spinner from '../components/Spinner'
@@ -194,6 +195,13 @@ function TimelineEvent() {
                 alt={'timeline event'}
                 loading='lazy'
               ></img>
+              <ImageListItemBar
+                title={
+                  image.slice(89).split('-')[0] === '123'
+                    ? 'Zane'
+                    : image.slice(89).split('-')[0]
+                }
+              />
             </ImageListItem>
           ))
         ) : (
