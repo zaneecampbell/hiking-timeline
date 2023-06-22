@@ -27,12 +27,6 @@ import { v4 as uuidv4 } from 'uuid'
 import { Typography } from '@mui/material'
 
 // TODOS:
-// Click image open single instance of just that image (maybe in a modal)
-// Think about changing the file naming structure using the name in user + timestamp
-// 404 page update better
-// Loading on image upload
-// Notification on failure of upload
-// Change max number of uploadable images down to 5 again
 // Make a way to delete images
 
 function TimelineEvent() {
@@ -199,7 +193,7 @@ function TimelineEvent() {
                 title={
                   image.slice(89).split('-')[0] === '123'
                     ? 'Zane'
-                    : image.slice(89).split('-')[0]
+                    : image.slice(89).replace('%20', ' ').split('-')[0]
                 }
               />
             </ImageListItem>
@@ -286,10 +280,3 @@ function TimelineEvent() {
   )
 }
 export default TimelineEvent
-
-// use id in params to fetch the timeline info (copy poll maybe useEffect)
-// if there is no timeline info display so
-// if the the timeline exists but there are no pictures say so
-// if state.timeline = null display no event here or something?
-// state.timeline when/where display for now will suffice
-// also we need an upload images button and functionality
